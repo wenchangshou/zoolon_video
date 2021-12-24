@@ -18,7 +18,7 @@ namespace Zoolon_videoplayer
         public int height { get; set; }
         [Option('p',"port",Required =false,Default =0)]
         public int port { get; set; }
-        [Option('s', "source", Required = false, Default = "")]
+        [Option('s', "source", Required = false, Default = "d:/1.mp4")]
         public string source { get; set; }
     }
 }

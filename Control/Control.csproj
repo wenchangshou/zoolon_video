@@ -15,6 +15,6 @@
     </PackageReference>
   </ItemGroup>
 	<ItemGroup>
-		<Protobuf Include="../../protos/control.proto" Link="control.proto"/>
+		<Protobuf Include="../../../protos/control.proto" Link="control.proto" />
 	</ItemGroup> 
 </Project>
