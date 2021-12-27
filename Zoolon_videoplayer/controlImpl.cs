@@ -20,34 +20,21 @@ namespace Zoolon_videoplayer
         {
             player = mediaPlayer;
         }
-        public delegate string executeHandler(string payload);
+        public delegate ExecuteResult executeHandler(string payload);
         public event executeHandler execute;
+        public delegate getResult getHandler();
+        public event getHandler get;
         public override Task<RpcResponse> Call(RpcRequest request, ServerCallContext context)
         {
             string body = request.Body;
-            int code = 0;
-            string msg = "success";
-            string payload = "";
+
+            ExecuteResult payload = new ExecuteResult();
             if (execute != null)
             {
-                execute(body);
+                payload=execute(body);
             }
-          /* Dictionary<string, string> cmd = JsonConvert.DeserializeObject<Dictionary<string, string>>(body);
-            string action = cmd["action"];
-          
-            if (action == "play")
-            {
-                player.Play();
-            }else if (action == "stop")
-            {
-                player.Stop();
-            }else if (action == "pause")
-            {
-                player.Pause();
-            }*/
 
-
-            return Task.FromResult(new RpcResponse { Code = code, Msg = msg, Payload = payload }) ;
+            return Task.FromResult(new RpcResponse { Code =payload.Code,Msg=payload.Msg}) ;
         }
 
         public override Task<SimpleResponse> Close(EmptyMessage request, ServerCallContext context)
@@ -60,9 +47,15 @@ namespace Zoolon_videoplayer
          */
         public override Task<SimpleResponse> Ping(EmptyMessage request, ServerCallContext context)
         {
-            return base.Ping(request, context);
+
+            return Task.FromResult(new SimpleResponse { Code = 0 });
+           
         }
 
-    
+        public override Task<RpcGetResponse> Get(RpcGetRequest request, ServerCallContext context)
+        {
+            var result=get();
+            return Task.FromResult(new RpcGetResponse { Code = result.Code, Msg = result.Msg, Payload = result.Payload }) ;
+        }
     }
 }

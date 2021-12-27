@@ -2,7 +2,7 @@
   "profiles": {
     "Zoolon_videoplayer": {
       "commandName": "Project",
-      "commandLineArgs": "-x 1920 -y 0 -w 1920 -h 1080 -s d:/1.mp4 -p 8888"
+      "commandLineArgs": "-w 1920 -h 1080 -x 1920 -y 0 -s c:/zoolon/resource/3-welcome.mp4 -p 8230"
     }
   }
 }

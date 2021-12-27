@@ -56,6 +56,7 @@ namespace Zoolon_videoplayer
             }
             control = new controlImpl(_mp);
             control.execute += Control_execute;
+            control.get += getHandler;
             server = new Server
             {
                 Services = { Control.RpcCall.BindService(control) },
@@ -64,11 +65,51 @@ namespace Zoolon_videoplayer
             server.Start();
         }
 
-        private string Control_execute(string payload)
+        private getResult getHandler()
         {
-            Dictionary<string, string> cmd = JsonConvert.DeserializeObject<Dictionary<string, string>>(payload);
-            string action = cmd["action"];
+            Dictionary<string, Object> m = new Dictionary<string, object>();
+            getResult result = new getResult();
+            var state = _mp.State;
+            m["position"] =state==VLCState.Ended?100: _mp.Position*100;
+            m["state"] = state.ToString();
+            m["volume"] = _mp.Volume;
+            m["duration"] = _mp.Time;
+            result.Code = 0;
+            result.Payload = JsonConvert.SerializeObject(m);
+            return result;
+        }
 
+        private ExecuteResult Control_execute(string payload)
+        {
+            Dictionary<string, object> cmd;
+            Dictionary<string, object> arguments=new Dictionary<string, object>();
+            try
+            {
+                cmd= JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
+                if (cmd == null)
+                {
+                    return new ExecuteResult(400,"payload 解析数据为空");
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                return new ExecuteResult(400, "解析json失败:"+ex.Message);
+            }
+            string action = "";
+            if ((!cmd.ContainsKey("action")) && (!cmd.ContainsKey("Action")))
+            {
+                return new ExecuteResult(400, "action 必须填写");
+            }
+            action = cmd.ContainsKey("action") ? cmd["action"].ToString() : cmd["Action"].ToString();
+            if (cmd.ContainsKey("arguments"))
+            {
+        
+                arguments= JsonConvert.DeserializeObject<Dictionary<string, object>>(cmd["arguments"].ToString());
+            }
+            int code = 0;
+            string msg = "success";
+           
             if (action == "play")
             {
 
@@ -82,15 +123,34 @@ namespace Zoolon_videoplayer
             {
                 _mp.Pause();
             }
-            return "";
+            else if (action == "setVolume")
+            {
+                if (!arguments.ContainsKey("volume"))
+                {
+                    return new ExecuteResult(400, "action setVolume volume not exists");
+                }
+                _mp.Volume = Int32.Parse(arguments["volume"].ToString());
+            }else if(action== "setPosition")
+            {
+                if (!arguments.ContainsKey("position"))
+                {
+                    return new ExecuteResult(400, "action setVolume position not exists");
+                }
+                _mp.Position=Int32.Parse(arguments["position"].ToString());
+            }
+            return new ExecuteResult(code, msg);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             var media = new Media(_libVLC, new Uri(this.source));
             _mp.Play(media);
+            _mp.Volume = 0;
+
             media.Dispose();
         }
+
+        
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
