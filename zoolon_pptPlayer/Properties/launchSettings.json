@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "zoolon_pptPlayer": {
+      "commandName": "Project",
+      "commandLineArgs": "-x 0 -y 0 -w 1920 -h 1080 -s D:\\vd-resources\\ppt\\宣讲PPT.pptx -p 8888"
+    }
+  }
+}

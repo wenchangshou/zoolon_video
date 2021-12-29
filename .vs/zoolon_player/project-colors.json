@@ -13,9 +13,19 @@
     },
     "8f00b85c-dd2c-4337-b2ed-9320abb5c2b6": {
       "ProjectGuid": "8f00b85c-dd2c-4337-b2ed-9320abb5c2b6",
-      "DisplayName": "Control",
+      "DisplayName": "Base",
       "ColorIndex": 1
+    },
+    "03af97ba-73d3-4531-946f-78571167c6fd": {
+      "ProjectGuid": "03af97ba-73d3-4531-946f-78571167c6fd",
+      "DisplayName": "zoolon_pptPlayer",
+      "ColorIndex": 2
+    },
+    "29356a88-69d8-4353-b3c9-27510907fa44": {
+      "ProjectGuid": "29356a88-69d8-4353-b3c9-27510907fa44",
+      "DisplayName": "zoolon_webPlayer",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 4
 }

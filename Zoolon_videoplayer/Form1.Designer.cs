@@ -38,7 +38,7 @@ namespace Zoolon_videoplayer
             this.videoView1.BackColor = System.Drawing.Color.Black;
             this.videoView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.videoView1.Location = new System.Drawing.Point(0, 0);
-            this.videoView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.videoView1.Margin = new System.Windows.Forms.Padding(4);
             this.videoView1.MediaPlayer = null;
             this.videoView1.Name = "videoView1";
             this.videoView1.Size = new System.Drawing.Size(933, 588);
@@ -50,16 +50,16 @@ namespace Zoolon_videoplayer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 588);
             this.Controls.Add(this.videoView1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "LibVLCSharp.WinForms";
             ((System.ComponentModel.ISupportInitialize)(this.videoView1)).EndInit();
             this.ResumeLayout(false);
 
-
         }
 
         #endregion
+
         private VideoView videoView1;
     }
 }

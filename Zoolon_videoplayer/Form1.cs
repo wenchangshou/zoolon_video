@@ -54,7 +54,7 @@ namespace Zoolon_videoplayer
             {
                 return;
             }
-            control = new controlImpl(_mp);
+            control = new controlImpl();
             control.execute += Control_execute;
             control.get += getHandler;
             server = new Server
