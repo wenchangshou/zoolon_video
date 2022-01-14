@@ -26,8 +26,8 @@ namespace zoolon_pptPlayer
         {
             try
             {
-                Form1 form1;
-                form1 = new Form1();
+                zoolon_pptPlayer form1;
+                form1 = new zoolon_pptPlayer(obj);
                 form1.SetSource(obj.source);
                 form1.SetWindowInfo(obj.x, obj.y, obj.width, obj.height);
                 Application.ThreadException += Application_ThreadException;
@@ -35,7 +35,6 @@ namespace zoolon_pptPlayer
 
                 Application.EnableVisualStyles();
                 //   Application.SetCompatibleTextRenderingDefault(false);
-
                 Application.Run(form1);
             }
             catch (Exception ex)

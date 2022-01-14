@@ -1,0 +1,163 @@
+﻿using Grpc.Core;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace zoolon_image
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private controlImpl control;
+        private int idx;
+        private string[] _source;
+        private Server server;
+
+        public MainWindow(Options obj)
+        {
+
+            InitializeComponent();
+            this.Source = obj.source;
+            Application.Current.MainWindow.Width = obj.width;
+            Application.Current.MainWindow.Height = obj.height;
+            Application.Current.MainWindow.Left = obj.x;
+            Application.Current.MainWindow.Top = obj.y;
+            Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+            initControl(obj);
+        }
+        private void initControl(Options options)
+        {
+            if (options.port == 0)
+            {
+                return;
+            }
+            control = new controlImpl();
+            control.execute += Control_execute;
+            control.get += getHandler;
+            server = new Server
+            {
+                Services = { Control.RpcCall.BindService(control) },
+                Ports = { new ServerPort("localhost", options.port, ServerCredentials.Insecure) }
+            };
+            server.Start();
+        }
+
+        private getResult getHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        private ExecuteResult Control_execute(string payload)
+        {
+            ExecuteResult result = new ExecuteResult(0, "success");
+            Dictionary<string, object> cmd;
+            Dictionary<string, object> arguments = new Dictionary<string, object>();
+            try
+            {
+                cmd = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
+                if (cmd == null)
+                {
+                    return new ExecuteResult(400, "payload 解析数据为空");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return new ExecuteResult(400, "解析json失败:" + ex.Message);
+            }
+            string? action = "";
+            if ((!cmd.ContainsKey("action")) && (!cmd.ContainsKey("Action")))
+            {
+                return new ExecuteResult(400, "action 必须填写");
+            }
+            action = cmd.ContainsKey("action") ? cmd["action"].ToString() : cmd["Action"].ToString();
+            if (cmd.ContainsKey("arguments"))
+            {
+                arguments = JsonConvert.DeserializeObject<Dictionary<string, object>>(cmd["arguments"].ToString());
+            }
+            if (action == "first")
+            {
+                first();
+            }else if (action == "last")
+            {
+                last();
+            }else if (action == "next")
+            {
+                next();
+
+            }
+            return result;
+        }
+        private  void first()
+        {
+            idx = 0;
+            load();
+        }
+        private void last()
+        {
+            idx = _source.Length - 1;
+            load();
+        }
+        private void next()
+        {
+            idx++;
+            if (idx>= _source.Length)
+            {
+                idx = 0;
+            }
+            load();
+        }
+        private void prev()
+        {
+            idx--;
+            if (idx <= 0)
+            {
+                idx=_source.Length - 1;
+            }
+            load();
+        }
+        public string Source
+        {
+
+            set
+            {
+                var arr = value.Split(",");
+                _source = arr;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void load()
+        {
+            image.Source = new BitmapImage(new Uri(_source[idx]));
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_source.Length == 0)
+            {
+                return;
+            }
+            idx = 0;
+            load();
+
+        }
+    }
+}

@@ -2,7 +2,7 @@
   "profiles": {
     "Zoolon_videoplayer": {
       "commandName": "Project",
-      "commandLineArgs": "-w 1920 -h 1080 -x 1920 -y 0 -s c:/zoolon/resource/3-welcome.mp4 -p 8230"
+      "commandLineArgs": "-w 3840 -h 2160 -x 1920 -y 0 -s c:/zoolon/resource/28-SAMSUNG.mkv -p 8301"
     }
   }
 }
