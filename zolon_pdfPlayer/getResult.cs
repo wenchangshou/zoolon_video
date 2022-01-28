@@ -13,7 +13,6 @@ public class getResult
         this.Msg = "success";
         this.Payload = "";
     }
-
     public getResult(int code, string msg, string payload)
     {
         Code = code;

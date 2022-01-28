@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "zoolon_webplayer2": {
+      "commandName": "Project",
+      "commandLineArgs": "-x 0 -y 0 -w 1920 -h 1080 -s http://www.baidu.com"
+    }
+  }
+}

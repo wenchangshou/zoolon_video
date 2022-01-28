@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace zoolon_webPlayer.Properties
+namespace zolon_pdfPlayer.Properties
 {
 
 

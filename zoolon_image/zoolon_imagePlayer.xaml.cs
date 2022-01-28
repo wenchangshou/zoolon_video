@@ -98,6 +98,14 @@ namespace zoolon_image
             {
                 next();
 
+            }else if (action == "change")
+            {
+                if (!arguments.ContainsKey("action"))
+                {
+                    return new ExecuteResult(400, "action change source not exists");
+                }
+                _source = arguments["source"].ToString().Split(",");
+                this.first();
             }
             return result;
         }

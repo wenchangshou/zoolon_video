@@ -8,18 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace zoolon_webPlayer
+namespace zolon_pdfPlayer
 {
-    public partial class Form1 : Form
+    public partial class zoolon_pdfPlayer : Form
     {
-        private const string V = "https://www.baidu.com/";
-
-        public Form1()
+        public zoolon_pdfPlayer()
         {
-
             InitializeComponent();
-            webView21.Source = new Uri(V);
-            
+        }
+
+        public zoolon_pdfPlayer(Options o)
+        {
         }
     }
 }
