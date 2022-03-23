@@ -8,9 +8,9 @@ using Grpc.Core;
 using LibVLCSharp.Shared;
 namespace Zoolon_videoplayer
 {
-    public class controlImpl : RpcCall.RpcCallBase
+    public class ControlImpl : RpcCall.RpcCallBase
     {
-        public controlImpl(MediaPlayer mediaPlayer)
+        public ControlImpl(MediaPlayer mediaPlayer)
         {
 
         }

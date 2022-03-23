@@ -13,8 +13,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
 	<ItemGroup>
-		<Protobuf Include="../../protos/control.proto" Link="control.proto"/>
+		<Protobuf Include="../../protos/control.proto" Link="control.proto" />
 	</ItemGroup> 
 </Project>

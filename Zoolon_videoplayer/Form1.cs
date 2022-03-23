@@ -30,15 +30,16 @@ namespace Zoolon_videoplayer
         }
         public Form1(Options options)
         {
-            initVlc();
-            initControl(options);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
+            InitializeComponent();
+
             this.source = options.source;
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(options.x,options.y);
             this.Size=new Size(options.width,options.height);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            InitializeComponent();
-           
+            initVlc();
+            initControl(options);
             Load += Form1_Load;
             FormClosed += Form1_FormClosed;
 
@@ -51,7 +52,7 @@ namespace Zoolon_videoplayer
             }
             server = new Server
             {
-                Services = {Control.RpcCall.BindService(new controlImpl(_mp))},
+                Services = {Control.RpcCall.BindService(new ControlImpl(_mp))},
                 Ports = {new ServerPort("localhost",options.port,ServerCredentials.Insecure)}
             };
             server.Start();

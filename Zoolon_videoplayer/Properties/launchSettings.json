@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Zoolon_videoplayer": {
+      "commandName": "Project",
+      "commandLineArgs": "-x 1920 -y 0 -w 3840 -h 2160 -s D:\\vd-resources\\BOE.mp4 -p 9998"
+    }
+  }
+}

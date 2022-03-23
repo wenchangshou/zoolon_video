@@ -19,6 +19,6 @@ namespace Zoolon_videoplayer
         [Option('p',"port",Required =false,Default =0)]
         public int port { get; set; }
         [Option('s', "source", Required = false, Default = "")]
-        public string source { get; set; }
+        public string? source { get; set; }
     }
 }
