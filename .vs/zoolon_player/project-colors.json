@@ -1,0 +1,81 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    },
+    "fed99b36-107d-4a24-8852-f35fc81a6bf7": {
+      "ProjectGuid": "fed99b36-107d-4a24-8852-f35fc81a6bf7",
+      "DisplayName": "Zoolon_videoplayer",
+      "ColorIndex": 0
+    },
+    "8f00b85c-dd2c-4337-b2ed-9320abb5c2b6": {
+      "ProjectGuid": "8f00b85c-dd2c-4337-b2ed-9320abb5c2b6",
+      "DisplayName": "Base",
+      "ColorIndex": 1
+    },
+    "03af97ba-73d3-4531-946f-78571167c6fd": {
+      "ProjectGuid": "03af97ba-73d3-4531-946f-78571167c6fd",
+      "DisplayName": "zoolon_pptPlayer",
+      "ColorIndex": 2
+    },
+    "29356a88-69d8-4353-b3c9-27510907fa44": {
+      "ProjectGuid": "29356a88-69d8-4353-b3c9-27510907fa44",
+      "DisplayName": "zoolon_webPlayer",
+      "ColorIndex": 3
+    },
+    "69b8f460-5931-45b3-98e7-70c772d045fa": {
+      "ProjectGuid": "69b8f460-5931-45b3-98e7-70c772d045fa",
+      "DisplayName": "zoolon_webPlayer",
+      "ColorIndex": 4
+    },
+    "91acc841-faea-46bb-bf29-12d13da07f03": {
+      "ProjectGuid": "91acc841-faea-46bb-bf29-12d13da07f03",
+      "DisplayName": "zoolon_image",
+      "ColorIndex": 5
+    },
+    "9f5f9853-1016-4dda-bfac-afd4ae626c8a": {
+      "ProjectGuid": "9f5f9853-1016-4dda-bfac-afd4ae626c8a",
+      "DisplayName": "zoolon_pdfPlayer",
+      "ColorIndex": 6
+    },
+    "c67fea2f-7f94-4c7d-8518-505b4d7561c3": {
+      "ProjectGuid": "c67fea2f-7f94-4c7d-8518-505b4d7561c3",
+      "DisplayName": "Zoolon_pdfPlayer",
+      "ColorIndex": 7
+    },
+    "82bbaafb-6a50-46a4-a244-dbda2a984640": {
+      "ProjectGuid": "82bbaafb-6a50-46a4-a244-dbda2a984640",
+      "DisplayName": "zoolon_pdfPlayer",
+      "ColorIndex": 8
+    },
+    "5d1963e7-1210-4fae-8219-a1125aa9a512": {
+      "ProjectGuid": "5d1963e7-1210-4fae-8219-a1125aa9a512",
+      "DisplayName": "zoolon_pdfPlayer",
+      "ColorIndex": 9
+    },
+    "eda9452c-1057-4692-9f00-2bc6789d4b03": {
+      "ProjectGuid": "eda9452c-1057-4692-9f00-2bc6789d4b03",
+      "DisplayName": "zoolon_pdfPlayer",
+      "ColorIndex": 10
+    },
+    "48b7b263-a9dd-4e61-b269-6dee09f61e7e": {
+      "ProjectGuid": "48b7b263-a9dd-4e61-b269-6dee09f61e7e",
+      "DisplayName": "zoolon_pdfPlayer",
+      "ColorIndex": 11
+    },
+    "73572b12-f645-4a2f-9b45-2f1dca397a8c": {
+      "ProjectGuid": "73572b12-f645-4a2f-9b45-2f1dca397a8c",
+      "DisplayName": "zoolon_pdfPlayer",
+      "ColorIndex": 12
+    },
+    "b69207c2-1256-426e-a33a-0031fc287c87": {
+      "ProjectGuid": "b69207c2-1256-426e-a33a-0031fc287c87",
+      "DisplayName": "zolon_pdfPlayer",
+      "ColorIndex": 13
+    }
+  },
+  "NextColorIndex": 14
+}

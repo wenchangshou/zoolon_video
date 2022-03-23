@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "zoolon_pptPlayer": {
+      "commandName": "Project",
+      "commandLineArgs": "-w 1920 -h 1080 -x 0 -y 0 -s \"c:/zoolon/resource/5-编辑&控制.pptx\" -p 11919"
+    }
+  }
+}

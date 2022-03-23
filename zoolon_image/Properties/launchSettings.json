@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "zoolon_image": {
+      "commandName": "Project",
+      "commandLineArgs": "-x 1920 -y 0 -w 3840 -h 2160 -s D:/vd-resources/images/4.jpg"
+    }
+  }
+}
