@@ -1,19 +1,9 @@
-﻿using Grpc.Core;
+﻿using Base;
+using Grpc.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace zoolon_webplayer2
 {
@@ -33,18 +23,18 @@ namespace zoolon_webplayer2
         public zoolon_webView(Options obj)
         {
             InitializeComponent();
-            Application.Current.MainWindow.Width = obj.width;
-            Application.Current.MainWindow.Height = obj.height;
-            Application.Current.MainWindow.Left = obj.x;
-            Application.Current.MainWindow.Top = obj.y;
+            Application.Current.MainWindow.Width = obj.Width;
+            Application.Current.MainWindow.Height = obj.Height;
+            Application.Current.MainWindow.Left = obj.X;
+            Application.Current.MainWindow.Top = obj.Y;
             Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-            this.Source = obj.source;
+            this.Source = obj.Source;
             initControl(obj);
         }
 
         private void initControl(Options options)
         {
-            if (options.port == 0)
+            if (options.Port == 0)
             {
                 return;
             }
@@ -54,7 +44,7 @@ namespace zoolon_webplayer2
             server = new Server
             {
                 Services = { Control.RpcCall.BindService(control) },
-                Ports = { new ServerPort("localhost", options.port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("localhost", options.Port, ServerCredentials.Insecure) }
             };
             server.Start();
         }

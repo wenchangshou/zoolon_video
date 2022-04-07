@@ -12,7 +12,7 @@ namespace Zoolon_videoplayer
     }
     public class setVolumeCmd
     {
-        public string action { get; set; }
-        public setVolumeCmdParams arguments { get; set; }
+        public string? action { get; set; }
+        public setVolumeCmdParams? arguments { get; set; }
     }
 }

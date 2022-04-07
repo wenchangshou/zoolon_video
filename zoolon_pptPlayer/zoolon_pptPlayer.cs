@@ -8,6 +8,7 @@ using ppt = Microsoft.Office.Interop.PowerPoint;
 using Microsoft.Office.Core;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
+using Base;
 
 namespace zoolon_pptPlayer
 {
@@ -45,7 +46,7 @@ namespace zoolon_pptPlayer
 
         private void initControl(Options options)
         {
-            if (options.port == 0)
+            if (options.Port == 0)
             {
                 return;
             }
@@ -55,7 +56,7 @@ namespace zoolon_pptPlayer
             server = new Server
             {
                 Services = { Control.RpcCall.BindService(control) },
-                Ports = { new ServerPort("localhost", options.port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("localhost", options.Port, ServerCredentials.Insecure) }
             };
             server.Start();
         }

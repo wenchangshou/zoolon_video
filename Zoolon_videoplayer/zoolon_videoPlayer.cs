@@ -2,21 +2,22 @@ using Grpc.Core;
 using LibVLCSharp.Shared;
 using Control;
 using Newtonsoft.Json;
+using Base;
 
 namespace Zoolon_videoplayer
 {
     public partial class zoolon_videoPlayer : Form
     {
-        public LibVLC _libVLC;
+        public LibVLC? _libVLC;
         public MediaPlayer _mp;
-        public Server server;
-        private int x;
-        private int y;
-        private int width;
-        private int height;
-        private string source;
+        public Server? server;
+        private int x=0;
+        private int y=0;
+        private int width=1920;
+        private int height=1080;
+        private string source="";
         private controlImpl control;
-        public void initVlc()
+        public void InitVlc()
         {
             if (!DesignMode)
             {
@@ -28,15 +29,28 @@ namespace Zoolon_videoplayer
         }
         public zoolon_videoPlayer()
         {
+    
             InitializeComponent();
-            initVlc();
+            if (!DesignMode)
+            {
+                Core.Initialize();
+            }
+            _libVLC = new LibVLC("--input-repeat=65535");
+            _mp = new MediaPlayer(_libVLC);
+            videoView1.MediaPlayer = _mp;
         }
         public zoolon_videoPlayer(Options options)
         {
             InitializeComponent();
 
             InitControl(options);
-            initVlc();
+            if (!DesignMode)
+            {
+                Core.Initialize();
+            }
+            _libVLC = new LibVLC("--input-repeat=65535");
+            _mp = new MediaPlayer(_libVLC);
+            videoView1.MediaPlayer = _mp;
 
             this.source = options.source;
          //   this.StartPosition = FormStartPosition.Manual;

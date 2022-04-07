@@ -35,7 +35,6 @@ namespace Zoolon_videoplayer
         static void HandleParseError(IEnumerable<Error> errs)
         {
             Console.WriteLine(errs.ToString());
-            //handle errors
         }
     }
 }

@@ -1,58 +1,107 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Websocket.Client;
+using Websocket.Client.Models;
 
-namespace Control
+namespace Base
 {
-    internal class DaemonClient
+    internal class DaemonClient : icontrol
     {
+        const int MsgIDLength = 16;
 
-        private Uri _uri;
-        private String _name;
-        public DaemonClient(String server,int port,String name)
+        public String instanceName;
+        public String uri;
+        WebsocketClient client;
+
+        public event icontrol.RecvMsg OnRecvMsg;
+
+        public DaemonClient(String uri, String name)
         {
-            String uri=String.Format("{0}:{1}", server, port);
-            _uri=new Uri(uri);
-            _name = name;
+            this.instanceName = name;
+            this.uri = uri;
+            Start();
         }
-        public int Start()
+
+
+        public void Start()
         {
-            using (var client =new WebsocketClient(_uri))
+            var exitEvent = new ManualResetEvent(false);
+            var url = new Uri(this.uri);
+            client = new WebsocketClient(url);
+            client.ReconnectionHappened.Subscribe(Reconnect);
+            client.MessageReceived.Subscribe(MessageProcess);
+            client.Start();
+            exitEvent.WaitOne();
+        }
+
+        private void MessageProcess(ResponseMessage message)
+        {
+            byte[] id = new byte[16];
+            if (message.MessageType == WebSocketMessageType.Binary)
             {
-                client.Name = "client";
-                client.ReconnectionHappened.Subscribe(type =>
+
+                var msg = new message(message.Binary);
+                if (OnRecvMsg != null)
                 {
-                    
-                });
-                client.DisconnectionHappened.Subscribe(type =>
+                    var reply = OnRecvMsg(msg.body);
+                    if (reply != null && reply.Reply && reply.Msg != null)
+                    {
+
+                        msg.body = reply.Msg;
+                        msg.topic = "/zebus";
+                        var b = msg.Encode();
+                        client.Send(b);
+                    }
+                }
+                return;
+            }
+             if(message.MessageType == WebSocketMessageType.Text)
+            {
+                if (OnRecvMsg != null)
                 {
-
-                });
-                client.MessageReceived.Subscribe(msg =>
-                {
-
-                });
-
-                client.Start();
-
-                Task.Run(() => StartSendingPing(client));
-
-
+                    var reply = OnRecvMsg(message.Text);
+                    if (reply != null && reply.Reply && reply.Msg != null)
+                    {
+                    }
+                }
             }
 
-            return 1;
-        }
-        private static async Task StartSendingPing(WebsocketClient client)
-        {
-            while (true)
-            {
-                await Task.Delay(1000);
-                
-            }
+
         }
 
+        public String genateRegisterMsg()
+        {
+            //var msg = new RegisterMsg { SocketName = this.instanceName };
+            //string str = JsonConvert.SerializeObject(msg);
+            return "";
+        }
+        private void Reconnect(ReconnectionInfo obj)
+        {
+            Console.WriteLine("reconnect:" + obj);
+            string msg = genateRegisterMsg();
+            client.Send(msg);
+
+        }
+
+        public void close()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string send(string body)
+        {
+            throw new NotImplementedException();
+        }
+
+        public byte[] send(byte[] body)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

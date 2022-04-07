@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Base;
 using Control;
 using Grpc.Core;
-using Newtonsoft.Json;
 
-    public class ControlStruct
+public class ControlStruct
 {
-    public string Action { get; set; }
+    public string? Action { get; set; }
 }
 public class controlImpl : RpcCall.RpcCallBase
 {
@@ -17,9 +17,9 @@ public class controlImpl : RpcCall.RpcCallBase
     {
     }
     public delegate ExecuteResult executeHandler(string payload);
-    public event executeHandler execute;
+    public event executeHandler? execute;
     public delegate getResult getHandler();
-    public event getHandler get;
+    public event getHandler? get;
     public override Task<RpcResponse> Call(RpcRequest request, ServerCallContext context)
     {
         string body = request.Body;
@@ -41,16 +41,5 @@ public class controlImpl : RpcCall.RpcCallBase
     /**
      * 
      */
-    public override Task<SimpleResponse> Ping(EmptyMessage request, ServerCallContext context)
-    {
 
-        return Task.FromResult(new SimpleResponse { Code = 0 });
-
-    }
-
-    public override Task<RpcGetResponse> Get(RpcGetRequest request, ServerCallContext context)
-    {
-        var result = get();
-        return Task.FromResult(new RpcGetResponse { Code = result.Code, Msg = result.Msg, Payload = result.Payload });
-    }
 }

@@ -28,8 +28,8 @@ namespace zoolon_pptPlayer
             {
                 zoolon_pptPlayer form1;
                 form1 = new zoolon_pptPlayer(obj);
-                form1.SetSource(obj.source);
-                form1.SetWindowInfo(obj.x, obj.y, obj.width, obj.height);
+                form1.SetSource(obj.Source);
+                form1.SetWindowInfo(obj.X, obj.Y, obj.Width, obj.Height);
                 Application.ThreadException += Application_ThreadException;
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 

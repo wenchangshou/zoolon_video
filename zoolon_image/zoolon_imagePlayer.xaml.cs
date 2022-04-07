@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Base;
+using Grpc.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,21 +28,21 @@ namespace zoolon_image
         private string[] _source;
         private Server server;
 
-        public MainWindow(Options obj)
+        public MainWindow(Options option)
         {
 
             InitializeComponent();
-            this.Source = obj.source;
-            Application.Current.MainWindow.Width = obj.width;
-            Application.Current.MainWindow.Height = obj.height;
-            Application.Current.MainWindow.Left = obj.x;
-            Application.Current.MainWindow.Top = obj.y;
+            this.Source = option.Source;
+            Application.Current.MainWindow.Width = option.Width;
+            Application.Current.MainWindow.Height = option.Height;
+            Application.Current.MainWindow.Left = option.X;
+            Application.Current.MainWindow.Top = option.Y;
             Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-            initControl(obj);
+            initControl(option);
         }
         private void initControl(Options options)
         {
-            if (options.port == 0)
+            if (options.Port == 0)
             {
                 return;
             }
@@ -51,7 +52,7 @@ namespace zoolon_image
             server = new Server
             {
                 Services = { Control.RpcCall.BindService(control) },
-                Ports = { new ServerPort("localhost", options.port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("localhost", options.Port, ServerCredentials.Insecure) }
             };
             server.Start();
         }

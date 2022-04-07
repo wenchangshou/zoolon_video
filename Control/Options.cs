@@ -7,17 +7,19 @@ using CommandLine;
 
 public class Options
 {
-    [Option('x', "xx", Required = false, Default = 0, HelpText = "set winform x position")]
-    public int x { get; set; }
-    [Option('y', "yy", Required = false, Default = 0, HelpText = "set winform y position")]
-    public int y { get; set; }
+    [Option( "protocol", Required =false,Default ="rpc")]
+    public string Protocol { get; set; }
+    [Option('x',  Required = false, Default = 0, HelpText = "set winform x position")]
+    public int X { get; set; }
+    [Option('y', Required = false, Default = 0, HelpText = "set winform y position")]
+    public int Y { get; set; }
     [Option('w', "width", Required = false, Default = 1920, HelpText = "set winform width")]
-    public int width { get; set; }
+    public int Width { get; set; }
     [Option('h', "height", Required = false, Default = 1080)]
-    public int height { get; set; }
+    public int Height { get; set; }
     [Option('p', "port", Required = false, Default = 0)]
-    public int port { get; set; }
+    public int Port { get; set; }
     [Option('s', "source", Required = false, Default = "d:/1.mp4")]
-    public string source { get; set; }
+    public string Source { get; set; }
 }
 

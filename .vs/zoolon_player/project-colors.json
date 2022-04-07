@@ -75,7 +75,17 @@
       "ProjectGuid": "b69207c2-1256-426e-a33a-0031fc287c87",
       "DisplayName": "zolon_pdfPlayer",
       "ColorIndex": 13
+    },
+    "73d3c874-0a15-438c-8f1a-bc9a6b2b041f": {
+      "ProjectGuid": "73d3c874-0a15-438c-8f1a-bc9a6b2b041f",
+      "DisplayName": "zoolon_webplayer",
+      "ColorIndex": 14
+    },
+    "e4ea4892-8513-4403-b77a-10d8a6b0ddea": {
+      "ProjectGuid": "e4ea4892-8513-4403-b77a-10d8a6b0ddea",
+      "DisplayName": "zoolon_container",
+      "ColorIndex": 15
     }
   },
-  "NextColorIndex": 14
+  "NextColorIndex": 0
 }
