@@ -11,7 +11,13 @@ using Websocket.Client.Models;
 
 namespace Base
 {
-    internal class DaemonClient : icontrol
+    public class RegisterMsg
+    {
+        public string messageType { get; set; } = "RegisterToDaemon";
+        public string SocketName { get; set; }
+        public string proto { get; set; } = "binary";
+    }
+    public class DaemonClient : icontrol
     {
         const int MsgIDLength = 16;
 
@@ -25,11 +31,10 @@ namespace Base
         {
             this.instanceName = name;
             this.uri = uri;
-            Start();
+            
         }
 
-
-        public void Start()
+        private void Run()
         {
             var exitEvent = new ManualResetEvent(false);
             var url = new Uri(this.uri);
@@ -38,6 +43,11 @@ namespace Base
             client.MessageReceived.Subscribe(MessageProcess);
             client.Start();
             exitEvent.WaitOne();
+        }
+        public void Start()
+        {
+            Thread thr1 = new Thread(Run);
+            thr1.Start();
         }
 
         private void MessageProcess(ResponseMessage message)
@@ -77,9 +87,9 @@ namespace Base
 
         public String genateRegisterMsg()
         {
-            //var msg = new RegisterMsg { SocketName = this.instanceName };
-            //string str = JsonConvert.SerializeObject(msg);
-            return "";
+            var msg = new RegisterMsg { SocketName = this.instanceName };
+            string str = JsonConvert.SerializeObject(msg);
+            return str;
         }
         private void Reconnect(ReconnectionInfo obj)
         {

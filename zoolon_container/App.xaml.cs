@@ -21,7 +21,8 @@ namespace zoolon_container
         }
         private void HandleParseError(IEnumerable<Error> errs)
         {
-            Console.WriteLine(errs.ToString());
+            string str = errs.ToString();
+            Console.WriteLine(str);
         }
 
         private void Run(Options obj)

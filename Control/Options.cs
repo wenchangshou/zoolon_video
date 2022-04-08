@@ -21,5 +21,14 @@ public class Options
     public int Port { get; set; }
     [Option('s', "source", Required = false, Default = "d:/1.mp4")]
     public string Source { get; set; }
+    [Option("register_websocket", Required = false, Default = false)]
+    public bool RegisterWebsocket { get; set; }
+    [Option("websocket_ip",Required =false,Default ="127.0.0.1")]
+    public string WebsocketIP { get; set; }
+    [Option("websocket_instance_name",Required =false,Default ="app")]
+    public string WebsocketInstanceName { get; set; }
+
+    [Option("websocket_port",Required =false,Default =5678)]
+    public int WebsocketPort { get; set; }
 }
 

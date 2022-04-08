@@ -3,31 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace zoolon_container
 {
-    public enum PlayerType
+    internal class ImagePlayer : Image, iplayer
     {
-        Video,
-        Image,
-        Web,
-        PPT,
-        Unknown
-    }
-    public class replyMessage
-    {
-        public bool reply=false;
-        public string content="";
-    }
-    public interface iplayer
-    {
-        public replyMessage Control(string body);
-        public bool Close();
-        public bool Exit();
-        public bool Open(string sourceDir);
-    }
-    public class Player : System.Windows.Controls.ContentControl, iplayer
-    {
+        public ImagePlayer(string source)
+        {
+            this.Open(source);
+        }
         public bool Close()
         {
             throw new NotImplementedException();
@@ -45,7 +31,8 @@ namespace zoolon_container
 
         public bool Open(string sourceDir)
         {
-            throw new NotImplementedException();
+            this.Source=new BitmapImage(new Uri(sourceDir));
+            return true;
         }
     }
 }

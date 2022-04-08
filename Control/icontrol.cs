@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Base
 {
-    internal interface icontrol
+    public interface icontrol
     {
         public delegate ExecuteResult RecvMsg(string body);
         public event RecvMsg OnRecvMsg;
