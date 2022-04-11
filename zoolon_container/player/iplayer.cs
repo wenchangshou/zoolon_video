@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace zoolon_container
 {
@@ -25,8 +26,9 @@ namespace zoolon_container
         public bool Close();
         public bool Exit();
         public bool Open(string sourceDir);
+        public System.Windows.Controls.ContentControl GetComponents();
     }
-    public class Player : System.Windows.Controls.ContentControl, iplayer
+    public class Player : iplayer
     {
         public bool Close()
         {
@@ -43,9 +45,15 @@ namespace zoolon_container
             throw new NotImplementedException();
         }
 
+        public ContentControl GetComponents()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Open(string sourceDir)
         {
             throw new NotImplementedException();
         }
+        
     }
 }

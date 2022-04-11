@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using zoolon_container.player;
 
 namespace zoolon_container
 {
@@ -19,8 +20,7 @@ namespace zoolon_container
 
 
         PlayerType _playerType=PlayerType.Unknown;
-        ContentControl c;
-        ImagePlayer imagePlayer;
+        iplayer c;
         double scalingRatio=1.0;
         DaemonClient? client ;
         public MainWindow()
@@ -53,7 +53,7 @@ namespace zoolon_container
         {
             var result = new ExecuteResult();
             result.Reply = true;
-            result.Msg = "测试消息";
+            result.Msg = "成功";
             var deserialized = JsonConvert.DeserializeObject<Dictionary<string,object>>(body);
             if(deserialized.ContainsKey("Service")&&deserialized["Service"].ToString()== "registerCall")
             {
@@ -71,10 +71,12 @@ namespace zoolon_container
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     Open(_source);
-
                 }));
-
-
+                return result;
+            }
+            if (_playerType == PlayerType.Video)
+            {
+                ((iplayer)c).Control(body);
             }
             Console.WriteLine($"接收到消息:{body}");
             
@@ -87,8 +89,9 @@ namespace zoolon_container
             if (_playerType == pType&& pType != PlayerType.Image)
             {
                 ((iplayer)c).Open(source);
+                return;
             }
-            if (c != null && pType == PlayerType.Video)
+            if (c != null && _playerType == PlayerType.Video)
             {
                 ((iplayer)c).Close();
             }
@@ -99,18 +102,14 @@ namespace zoolon_container
             if (pType == PlayerType.Video){
                 c = new VideoPlayer(source);
               
-            }
-            if (pType == PlayerType.Image)
+            }else if (pType ==PlayerType.Image)
             {
-                imagePlayer = new ImagePlayer(source);
-                imagePlayer.Width = this.Width;
-                imagePlayer.Height = this.Height;
-                canvas1.Children.Add(imagePlayer);
-                return;
+                c = new ImagePlayer(source);
             }
-            c.Width = this.Width;
-            c.Height = this.Height;
-            canvas1.Children.Add(c);
+            c.GetComponents().Width = this.Width;
+            c.GetComponents().Height = this.Height;
+       
+            canvas1.Children.Add(c.GetComponents());
         }
         public void initControl(Options options)
         {

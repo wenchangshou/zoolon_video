@@ -5,13 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using zoolon_container.player;
 
-namespace zoolon_container
+namespace zoolon_container.player
 {
-    internal class ImagePlayer : Image, iplayer
+    internal class ImagePlayer : iplayer
     {
+        //ContentControl component;
+        customImage component;
         public ImagePlayer(string source)
         {
+            component = new customImage();
             this.Open(source);
         }
         public bool Close()
@@ -29,9 +33,14 @@ namespace zoolon_container
             throw new NotImplementedException();
         }
 
+        public ContentControl GetComponents()
+        {
+            return component;
+        }
+
         public bool Open(string sourceDir)
         {
-            this.Source=new BitmapImage(new Uri(sourceDir));
+            component.Source = sourceDir;
             return true;
         }
     }

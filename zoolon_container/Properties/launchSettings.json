@@ -2,7 +2,7 @@
   "profiles": {
     "zoolon_container": {
       "commandName": "Project",
-      "commandLineArgs": "-x 0 -y 0 -w 3840 -h 2160 -s d:\\vd-resources\\欢迎词.jpg --register_websocket true --websocket_ip 192.168.10.47 --websocket_port 8181 --websocket_instance_name wcs"
+      "commandLineArgs": "-x 1920 -y 0 -w 3840 -h 2160 -s d:\\vd-resources\\欢迎词.jpg --register_websocket true --websocket_ip 192.168.10.47 --websocket_port 8181 --websocket_instance_name wcs"
     }
   }
 }
