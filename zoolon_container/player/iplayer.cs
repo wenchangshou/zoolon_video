@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace zoolon_container
@@ -26,7 +27,7 @@ namespace zoolon_container
         public bool Close();
         public bool Exit();
         public bool Open(string sourceDir);
-        public System.Windows.Controls.ContentControl GetComponents();
+        public ContentControl GetComponents();
     }
     public class Player : iplayer
     {

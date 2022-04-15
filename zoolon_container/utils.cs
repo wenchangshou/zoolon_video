@@ -38,6 +38,10 @@ namespace zoolon_container
             {
                 return PlayerType.Image;
             }
+            if (suffix == ".ppt" || suffix == ".pptx")
+            {
+                return PlayerType.PPT;
+            }
             return PlayerType.Unknown;
 
         }

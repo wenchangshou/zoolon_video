@@ -23,13 +23,16 @@ namespace zoolon_container
         iplayer c;
         double scalingRatio=1.0;
         DaemonClient? client ;
+        Options _options;
         public MainWindow()
         {
             InitializeComponent();
+            
         }
         public MainWindow(Options options)
         {
             InitializeComponent();
+            _options = options;
             scalingRatio = ScreenHelper.GetScalingRatio();
             Application.Current.MainWindow.Width = options.Width/ scalingRatio;
             Application.Current.MainWindow.Height = options.Height/scalingRatio;
@@ -38,9 +41,15 @@ namespace zoolon_container
             Application.Current.MainWindow.WindowStyle = WindowStyle.None;
             canvas1.Width = options.Width / scalingRatio;
             canvas1.Height = options.Height / scalingRatio;
-            Open(options.Source);
+            Loaded += onLoaded;
             InitControl(options);
         }
+
+        private void onLoaded(object sender, RoutedEventArgs e)
+        {
+            Open(_options     .Source);
+        }
+
         private void InitControl(Options option)
         {
             string uri = $"ws://{option.WebsocketIP}:{option.WebsocketPort}";
@@ -105,9 +114,14 @@ namespace zoolon_container
             }else if (pType ==PlayerType.Image)
             {
                 c = new ImagePlayer(source);
+            }else if (pType == PlayerType.PPT)
+            {
+                c=new pptPlayer(source);
+               
             }
             c.GetComponents().Width = this.Width;
             c.GetComponents().Height = this.Height;
+   
        
             canvas1.Children.Add(c.GetComponents());
         }
