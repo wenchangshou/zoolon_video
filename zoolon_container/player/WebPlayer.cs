@@ -1,40 +1,30 @@
-﻿using System;
+﻿using Microsoft.Web.WebView2.Wpf;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using ppt = Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Core;
-using System.Threading;
-using System.Windows;
-using System.Windows.Interop;
-using System.Runtime.InteropServices;
-using System.Windows.Forms.Integration;
-using System.Collections;
 
 namespace zoolon_container.player
 {
-    class pptPlayer : iplayer
+    internal class WebPlayer : iplayer
     {
-        private customPptPlayer player;
-        string _source;
-        public pptPlayer(string source)
+        customWebPlayer _container;
+        private string _source;
+        
+        public WebPlayer(string source)
         {
-         
+            _container = new customWebPlayer();
             _source = source;
-            player = new customPptPlayer(source);
-
+            this.Open(_source);
         }
-
-       
         public bool Close()
         {
-
-            player.Close();
+            _container.Dispose();
             return true;
         }
-
         public replyMessage Control(string body)
         {
             throw new NotImplementedException();
@@ -42,7 +32,9 @@ namespace zoolon_container.player
 
         public replyMessage Control(Hashtable args)
         {
-            return null;
+            
+            throw new NotImplementedException();
+
         }
 
         public bool Exit()
@@ -52,17 +44,17 @@ namespace zoolon_container.player
 
         public ContentControl GetComponents()
         {
-            return player;
+            return _container;
         }
 
         public PlayerType getType()
         {
-            return PlayerType.PPT;
+            return PlayerType.Web;
         }
 
         public bool Open(string sourceDir)
         {
-            player.OpenPpt(sourceDir);
+            _container.Source = sourceDir;
             return true;
         }
     }

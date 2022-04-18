@@ -8,16 +8,13 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Background="#000"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
     <WindowChrome.WindowChrome>
         <WindowChrome 
         CaptionHeight="0"
         ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
-    <Grid>
-
-        <Canvas  Margin="0,0,0,0"  Name="canvas1"  />
-
-
+    <Grid Background="#000">    
+        <Canvas Background="#000" Margin="0,0,0,0"  Name="canvas1"  />
     </Grid>
 </Window>

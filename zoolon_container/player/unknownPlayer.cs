@@ -1,37 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using ppt = Microsoft.Office.Interop.PowerPoint;
-using Microsoft.Office.Core;
-using System.Threading;
-using System.Windows;
-using System.Windows.Interop;
-using System.Runtime.InteropServices;
-using System.Windows.Forms.Integration;
-using System.Collections;
 
 namespace zoolon_container.player
 {
-    class pptPlayer : iplayer
+    internal class UnknownPlayer : iplayer
     {
-        private customPptPlayer player;
-        string _source;
-        public pptPlayer(string source)
-        {
-         
-            _source = source;
-            player = new customPptPlayer(source);
+        customUnknownPlayer player = new customUnknownPlayer();
 
-        }
-
-       
         public bool Close()
         {
-
-            player.Close();
             return true;
         }
 
@@ -42,7 +24,7 @@ namespace zoolon_container.player
 
         public replyMessage Control(Hashtable args)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         public bool Exit()
@@ -57,13 +39,12 @@ namespace zoolon_container.player
 
         public PlayerType getType()
         {
-            return PlayerType.PPT;
+            return PlayerType.Unknown;
         }
 
         public bool Open(string sourceDir)
         {
-            player.OpenPpt(sourceDir);
-            return true;
+            throw new NotImplementedException();
         }
     }
 }

@@ -19,41 +19,43 @@ namespace zoolon_container
     {
 
 
-        PlayerType _playerType=PlayerType.Unknown;
+        PlayerType _playerType = PlayerType.Unknown;
         iplayer c;
-        double scalingRatio=1.0;
-        DaemonClient? client ;
+        double scalingRatio = 1.0;
+        DaemonClient? client;
         Options _options;
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
         public MainWindow(Options options)
         {
             InitializeComponent();
             _options = options;
             scalingRatio = ScreenHelper.GetScalingRatio();
-            Application.Current.MainWindow.Width = options.Width/ scalingRatio;
-            Application.Current.MainWindow.Height = options.Height/scalingRatio;
+            Application.Current.MainWindow.Width = options.Width / scalingRatio;
+            Application.Current.MainWindow.Height = options.Height / scalingRatio;
             Application.Current.MainWindow.Left = options.X / scalingRatio;
             Application.Current.MainWindow.Top = options.Y / scalingRatio;
             Application.Current.MainWindow.WindowStyle = WindowStyle.None;
             canvas1.Width = options.Width / scalingRatio;
             canvas1.Height = options.Height / scalingRatio;
-            Loaded += onLoaded;
+            //Loaded += onLoaded;
+            Open(_options.Source);
+
             InitControl(options);
         }
 
         private void onLoaded(object sender, RoutedEventArgs e)
         {
-            Open(_options     .Source);
+            Open(_options.Source);
         }
 
         private void InitControl(Options option)
         {
             string uri = $"ws://{option.WebsocketIP}:{option.WebsocketPort}";
-             client = new DaemonClient(uri,option.WebsocketInstanceName);
+            client = new DaemonClient(uri, option.WebsocketInstanceName);
             client.Start();
             client.OnRecvMsg += Client_OnRecvMsg;
         }
@@ -63,17 +65,17 @@ namespace zoolon_container
             var result = new ExecuteResult();
             result.Reply = true;
             result.Msg = "成功";
-            var deserialized = JsonConvert.DeserializeObject<Dictionary<string,object>>(body);
-            if(deserialized.ContainsKey("Service")&&deserialized["Service"].ToString()== "registerCall")
+            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
+            if (deserialized.ContainsKey("Service") && deserialized["Service"].ToString() == "registerCall")
             {
                 return result;
             }
-            if (!deserialized.ContainsKey("action"))
+            if ((!deserialized.ContainsKey("action")) && !(!deserialized.ContainsKey("Action")))
             {
                 result.Msg = "Action 必须填写";
                 return result;
             }
-            string action=deserialized["action"].ToString();
+            string action = deserialized["action"].ToString();
             if (action == "open")
             {
                 string _source = deserialized["source"].ToString();
@@ -88,50 +90,47 @@ namespace zoolon_container
                 ((iplayer)c).Control(body);
             }
             Console.WriteLine($"接收到消息:{body}");
-            
+
             return result;
         }
 
         private void Open(string source)
         {
             PlayerType pType = utils.GetPlayerType(source);
-            if (_playerType == pType&& pType != PlayerType.Image)
+
+            if (c != null && c.getType() == pType)
             {
-                ((iplayer)c).Open(source);
+                c.Open(source);
                 return;
             }
-            if (c != null && _playerType == PlayerType.Video)
-            {
-                ((iplayer)c).Close();
-            }
-            _playerType = pType;
-
+            c?.Close();
             canvas1.Children.Clear();
-
-            if (pType == PlayerType.Video){
-                c = new VideoPlayer(source);
-              
-            }else if (pType ==PlayerType.Image)
-            {
-                c = new ImagePlayer(source);
-            }else if (pType == PlayerType.PPT)
-            {
-                c=new pptPlayer(source);
-               
-            }
-            c.GetComponents().Width = this.Width;
-            c.GetComponents().Height = this.Height;
-   
-       
+            _playerType = pType;
+            c = factory.CreatePlayer(pType, source, this.canvas1.Width, this.canvas1.Height);
             canvas1.Children.Add(c.GetComponents());
         }
         public void initControl(Options options)
         {
 
         }
+        public void Dispose()
+        {
+            if (c != null)
+            {
+                c.Close();
+            }
+        }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (c != null)
+            {
+                c.Close();
+            }
+            System.Environment.Exit(0);
+        }
 
         //切换视频
-   
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +25,11 @@ namespace zoolon_container
     public interface iplayer
     {
         public replyMessage Control(string body);
+        public replyMessage Control(Hashtable args);
         public bool Close();
         public bool Exit();
         public bool Open(string sourceDir);
+        public PlayerType getType();
         public ContentControl GetComponents();
     }
     public class Player : iplayer
@@ -41,12 +44,22 @@ namespace zoolon_container
             throw new NotImplementedException();
         }
 
+        public replyMessage Control(Hashtable args)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Exit()
         {
             throw new NotImplementedException();
         }
 
         public ContentControl GetComponents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PlayerType getType()
         {
             throw new NotImplementedException();
         }

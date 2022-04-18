@@ -17,13 +17,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ppt = Microsoft.Office.Interop.PowerPoint;
-
+using System.Windows.Forms;
 namespace zoolon_container.player
 {
     /// <summary>
     /// customPptPlayer.xaml 的交互逻辑
     /// </summary>
-    public partial class customPptPlayer : UserControl
+    public partial class customPptPlayer : System.Windows.Controls.UserControl
     {
         private const int WM_SYSCOMMAND = 274;
         private const int SC_MAXIMIZE = 61488;
@@ -57,8 +57,10 @@ namespace zoolon_container.player
         public ppt.SlideShowView OSlideShowView { get; private set; }
         public ppt.Application ObjApp { get; private set; }
         SynchronizationContext _syncContext = null;
-        System.Windows.Forms.Panel _panel;
+       
         private string _source;
+        WindowsFormsHost _host;
+        System.Windows.Forms.Panel _panel;
         public customPptPlayer()
         {
             InitializeComponent();
@@ -67,12 +69,15 @@ namespace zoolon_container.player
         {
             InitializeComponent();
             _syncContext = SynchronizationContext.Current;
+            _panel = new System.Windows.Forms.Panel();
 
+            _host = new WindowsFormsHost();
+            _host.Child = _panel;
+            Content = _host;
             //防止连续打开多个PPT程序.
             if (ObjApp != null) { return; }
             ObjApp = new ppt.Application();
             _source = source;
-            _panel = (wfhSample.Child as System.Windows.Forms.Panel);
 
             Loaded += OnLoaded;
            
@@ -136,6 +141,17 @@ namespace zoolon_container.player
                 System.Console.WriteLine(e.ToString());
             }
 
+        }
+        public void Close()
+        {
+            ObjPrs.Close();
+
+        }
+        public  void Change(string source)
+        {
+            _source = source;
+            var te = OpenPpt(source);
+            PlayPpt(te);
         }
         public ppt.Presentation OpenPpt(string url)
         {

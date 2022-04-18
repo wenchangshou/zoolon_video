@@ -9,9 +9,9 @@
              mc:Ignorable="d" 
             >
 
-    <WindowsFormsHost  Name="wfhSample"  >
+    <!--<WindowsFormsHost  Name="wfhSample"  >
         <WindowsFormsHost.Child  >
             <wf:Panel BackColor="red" Width="1280" Height="720"/>
         </WindowsFormsHost.Child>
-            </WindowsFormsHost>
+            </WindowsFormsHost>-->
 </UserControl>

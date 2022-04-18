@@ -2,6 +2,7 @@
 using LibVLCSharp.WPF;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,19 +17,19 @@ namespace zoolon_container.player
         string _source="";
         LibVLC _libVLC;
         MediaPlayer _mediaPlayer;
-        VideoView videoView;
+        VideoView _videoView;
 
         public VideoPlayer(string source)
         {
-            videoView = new VideoView();
+            _videoView = new VideoView();
             _source = source;
-            videoView.Loaded += VideoView_Loaded;
+            _videoView.Loaded += VideoView_Loaded;
 
         }
 
         ~VideoPlayer()
         {
-            videoView.Loaded -= VideoView_Loaded;
+            _videoView.Loaded -= VideoView_Loaded;
             //if(_mediaPlayer!= null)
             //{
             //    _mediaPlayer.Stop();
@@ -45,13 +46,13 @@ namespace zoolon_container.player
             Core.Initialize();
             _libVLC = new LibVLC();
             _mediaPlayer = new MediaPlayer(_libVLC);
-            videoView.MediaPlayer = _mediaPlayer;
+            _videoView.MediaPlayer = _mediaPlayer;
             _mediaPlayer.Play(new Media(_libVLC, new Uri(_source)));
         }
 
         public bool Close()
         {
-            videoView.Loaded -= VideoView_Loaded;
+            _videoView.Loaded -= VideoView_Loaded;
             if (_mediaPlayer != null)
             {
                 _mediaPlayer.Stop();
@@ -61,7 +62,8 @@ namespace zoolon_container.player
             {
                 _libVLC.Dispose();
             }
-            
+            _videoView.Dispose();
+            this.Dispose();
             return true;
         }
 
@@ -126,10 +128,25 @@ namespace zoolon_container.player
             _mediaPlayer.Play(new Media(_libVLC, new Uri(sourceDir)));
             return true;
         }
-
         public ContentControl GetComponents()
         {
-            return videoView;
+            return _videoView;
+        }
+        public void Dispose()
+        {
+            _videoView?.Dispose();
+            _mediaPlayer.Dispose();
+            
+        }
+
+        public replyMessage Control(Hashtable args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PlayerType getType()
+        {
+            return PlayerType.Video;
         }
     }
 }

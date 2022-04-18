@@ -29,6 +29,10 @@ namespace zoolon_container
 
         internal static PlayerType GetPlayerType(string source)
         {
+            if (source.StartsWith("http")||source.StartsWith("www"))
+            {
+                return PlayerType.Web;
+            }
             string suffix=GetFileSuffix(source).ToLower();
             if (suffix == ".mp4")
             {

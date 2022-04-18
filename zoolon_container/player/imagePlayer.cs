@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,15 @@ namespace zoolon_container.player
         }
         public bool Close()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public replyMessage Control(string body)
+        {
+            throw new NotImplementedException();
+        }
+
+        public replyMessage Control(Hashtable args)
         {
             throw new NotImplementedException();
         }
@@ -37,6 +43,11 @@ namespace zoolon_container.player
         public ContentControl GetComponents()
         {
             return component;
+        }
+
+        public PlayerType getType()
+        {
+            return PlayerType.Image;
         }
 
         public bool Open(string sourceDir)
