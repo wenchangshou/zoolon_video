@@ -14,9 +14,9 @@ namespace Base
         {
         }
         public delegate ExecuteResult executeHandler(string payload);
-        public event executeHandler? execute;
+        public event executeHandler execute;
         public delegate getResult getHandler();
-        public event getHandler? get;
+        public event getHandler get;
         public override Task<RpcResponse> Call(RpcRequest request, ServerCallContext context)
         {
             string body = request.Body;
@@ -36,7 +36,7 @@ namespace Base
         }
 
     }
-    internal class rpcClient : icontrol
+    internal class rpcClient : Icontrol
     {
         private Server server;
         private grpcImpl contrl;
@@ -69,20 +69,20 @@ namespace Base
             return new ExecuteResult();
         }
 
-        public event icontrol.RecvMsg OnRecvMsg;
+        public event Icontrol.RecvMsg OnRecvMsg;
 
-        public void close()
+        public void Close()
         {
             throw new NotImplementedException();
         }
 
-        public string send(string body)
+        public string Send(string body)
         {
             
             throw new NotImplementedException();
         }
 
-        public byte[] send(byte[] body)
+        public byte[] Send(byte[] body)
         {
             throw new NotImplementedException();
         }

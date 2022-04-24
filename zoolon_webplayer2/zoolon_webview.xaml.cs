@@ -39,8 +39,8 @@ namespace zoolon_webplayer2
                 return;
             }
             control = new controlImpl();
-            control.execute += Control_execute;
-            control.get += getHandler;
+            control.Execute += Control_execute;
+            control.Get += getHandler;
             server = new Server
             {
                 Services = { Control.RpcCall.BindService(control) },

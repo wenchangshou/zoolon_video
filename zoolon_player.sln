@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zoolon_videoplayer", "Zoolon_videoplayer\Zoolon_videoplayer.csproj", "{FED99B36-107D-4A24-8852-F35FC81A6BF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base", "Control\Base.csproj", "{8F00B85C-DD2C-4337-B2ED-9320ABB5C2B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "Control\common.csproj", "{8F00B85C-DD2C-4337-B2ED-9320ABB5C2B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoolon_pptPlayer", "zoolon_pptPlayer\zoolon_pptPlayer.csproj", "{03AF97BA-73D3-4531-946F-78571167C6FD}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoolon_image", "zoolon_imag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoolon_webplayer", "zoolon_webplayer2\zoolon_webplayer.csproj", "{73D3C874-0A15-438C-8F1A-BC9A6B2B041F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zoolon_container", "zoolon_container\zoolon_container.csproj", "{E4EA4892-8513-4403-B77A-10D8A6B0DDEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoolon_container", "zoolon_container\zoolon_container.csproj", "{E4EA4892-8513-4403-B77A-10D8A6B0DDEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

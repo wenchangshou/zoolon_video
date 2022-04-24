@@ -22,8 +22,8 @@ namespace zoolon_container
         PlayerType _playerType = PlayerType.Unknown;
         iplayer c;
         double scalingRatio = 1.0;
-        DaemonClient? client;
         Options _options;
+        MessageProcess _process;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,9 +41,8 @@ namespace zoolon_container
             Application.Current.MainWindow.WindowStyle = WindowStyle.None;
             canvas1.Width = options.Width / scalingRatio;
             canvas1.Height = options.Height / scalingRatio;
-            //Loaded += onLoaded;
             Open(_options.Source);
-
+           // _process = new MessageProcess(options, c);
             InitControl(options);
         }
 
@@ -54,13 +53,18 @@ namespace zoolon_container
 
         private void InitControl(Options option)
         {
-            string uri = $"ws://{option.WebsocketIP}:{option.WebsocketPort}";
-            client = new DaemonClient(uri, option.WebsocketInstanceName);
-            client.Start();
-            client.OnRecvMsg += Client_OnRecvMsg;
+            Icontrol? control =null ;
+            if (option.Protocol == "daemon" && option.RegisterWebsocket)
+            {
+                control=ControlFactory.Make(ProtocolType.Daemon, option);
+            }
+            if (control != null)
+            {
+                control.OnRecvMsg += Control_OnRecvMsg;
+            }
         }
 
-        private ExecuteResult Client_OnRecvMsg(string body)
+        private ExecuteResult Control_OnRecvMsg(string body)
         {
             var result = new ExecuteResult();
             result.Reply = true;
@@ -85,14 +89,15 @@ namespace zoolon_container
                 }));
                 return result;
             }
-            if (_playerType == PlayerType.Video)
-            {
-                ((iplayer)c).Control(body);
-            }
+
+            ((iplayer)c).Control(body);
+
             Console.WriteLine($"接收到消息:{body}");
 
             return result;
         }
+
+      
 
         private void Open(string source)
         {
@@ -109,10 +114,7 @@ namespace zoolon_container
             c = factory.CreatePlayer(pType, source, this.canvas1.Width, this.canvas1.Height);
             canvas1.Children.Add(c.GetComponents());
         }
-        public void initControl(Options options)
-        {
-
-        }
+    
         public void Dispose()
         {
             if (c != null)

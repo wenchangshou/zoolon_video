@@ -12,6 +12,28 @@ using System.Windows.Controls;
 
 namespace zoolon_container.player
 {
+    class VideoCmdArgumentsStruct
+    {
+        public int PlayMode { get; set; } = 0;
+        public int Position { get; set; } = 0;
+        public int Volume { get; set; } = 0;
+    }
+    class VideoCmdStruct
+    {
+        public string Action { get; set; } = "";
+        
+    }
+    internal class VideoControlArgumentsStruct
+    {
+        public int PlayMode { get; set; } = -1;
+        public int Position { get; set; } = -1;
+        public int? Volume { get; set; }
+    }
+    internal class VideoControlStruct
+    {
+        public string Action { get; set; } = "";
+        public VideoControlArgumentsStruct? Arguments { get; set; }
+    }
     internal class VideoPlayer : iplayer
     {
         string _source="";
@@ -30,15 +52,7 @@ namespace zoolon_container.player
         ~VideoPlayer()
         {
             _videoView.Loaded -= VideoView_Loaded;
-            //if(_mediaPlayer!= null)
-            //{
-            //    _mediaPlayer.Stop();
-            //    _mediaPlayer.Dispose();
-            //}
-            //if (_libVLC != null)
-            //{
-            //    _libVLC.Dispose();
-            //}
+     
         }
 
         private void VideoView_Loaded(object sender, RoutedEventArgs e)
@@ -49,7 +63,10 @@ namespace zoolon_container.player
             _videoView.MediaPlayer = _mediaPlayer;
             _mediaPlayer.Play(new Media(_libVLC, new Uri(_source)));
         }
+        public void next()
+        {
 
+        }
         public bool Close()
         {
             _videoView.Loaded -= VideoView_Loaded;
@@ -66,55 +83,97 @@ namespace zoolon_container.player
             this.Dispose();
             return true;
         }
-
-        public replyMessage Control(string body)
+        /// <summary>
+        /// 开始播放
+        /// </summary>
+        private void Play()
         {
-            replyMessage reply = new replyMessage { };
-            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
-            Dictionary<string, object> arguments = new Dictionary<string, object>();
-
-            if (!deserialized.ContainsKey("action"))
-            {
-                reply.content = "Action 必须填写";
-                return reply;
-            }
-            string action = deserialized["action"].ToString();
-
-            if (deserialized.ContainsKey("arguments"))
-            {
-
-                arguments = JsonConvert.DeserializeObject<Dictionary<string, object>>(deserialized["arguments"].ToString());
-            }
-            if (action == "play")
+            if (_mediaPlayer != null)
             {
                 _mediaPlayer.Play();
             }
-            else if (action == "stop")
+        }
+        /// <summary>
+        /// 停止播放
+        /// </summary>
+        private void Stop()
+        {
+            if (_mediaPlayer != null)
             {
                 _mediaPlayer.Stop();
             }
-            else if (action == "pause")
+        }
+        private void SetPlayMode(int mode)
+        {
+            if (_mediaPlayer != null)
+            {
+                
+            }
+        }
+        /// <summary>
+        /// 设置播放进度
+        /// </summary>
+        /// <param name="position">进度</param>
+        private void SetPlayPosition(int position)
+        {
+            if (_mediaPlayer != null && _mediaPlayer.IsPlaying)
+            {
+                _mediaPlayer.Position = position;
+            }
+        }
+        /// <summary>
+        /// 暂停播放
+        /// </summary>
+        private void Pause()
+        {
+            if (_mediaPlayer != null)
             {
                 _mediaPlayer.Pause();
             }
-            else if (action == "setVolume")
+        }
+        private void SetPlayVolume(int volume)
+        {
+            if (_mediaPlayer != null)
             {
-                if (!arguments.ContainsKey("volume"))
-                {
-                    reply.content = "volume not exists";
-                    return reply;
-                }
-                _mediaPlayer.Volume = Int32.Parse(arguments["volume"].ToString());
+                _mediaPlayer.Volume = volume;
             }
-            else if (action == "setPosition")
+        }
+        /// <summary>
+        /// 控制播放器
+        /// </summary>
+        /// <param name="body">接收到的命令</param>
+        /// <returns></returns>
+        public replyMessage Control(string body)
+        {
+            replyMessage reply = new replyMessage { };
+            VideoControlStruct jsonBody = JsonConvert.DeserializeObject<VideoControlStruct>(body);
+
+            if (jsonBody == null||jsonBody.Action == null || jsonBody.Action == "")
             {
-                if (!arguments.ContainsKey("position"))
-                {
-                    return reply;
-                }
-                _mediaPlayer.Position = Int32.Parse(arguments["position"].ToString());
+                return reply;
             }
-           
+            switch (jsonBody.Action)
+            {
+                case "play":
+                    Play();
+                    break;
+                case "stop":
+                    Stop();
+                    break;
+                case "setPlayMode":
+                    if (jsonBody.Arguments != null && jsonBody.Arguments.PlayMode != -1)
+                    {
+                        SetPlayMode(jsonBody.Arguments.PlayMode);
+                    }
+                    break;
+                case "setPosition":
+                    if (jsonBody.Arguments != null && jsonBody.Arguments.Position != -1)
+                    {
+                        SetPlayPosition(jsonBody.Arguments.Position);
+                    }
+                    break;
+                    
+            }
             return reply;
         }
 

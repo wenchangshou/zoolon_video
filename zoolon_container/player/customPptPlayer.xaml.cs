@@ -127,12 +127,8 @@ namespace zoolon_container.player
 
             try
             {
-
-
-   
                 SetParent(wn, _panel.Handle);
                 System.Threading.Thread.Sleep(1000);//加上，100如果效果没有就继续加大
-
                 SendMessage(wn, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 
             }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Base
 {
-    public interface icontrol
+    public interface Icontrol
     {
         public delegate ExecuteResult RecvMsg(string body);
         public event RecvMsg OnRecvMsg;
-        public void close();
-        public string send(string body);
-        public byte[] send(byte[] body);
+        public void Close();
+        public string Send(string body);
+        public byte[] Send(byte[] body);
 
     }
 }

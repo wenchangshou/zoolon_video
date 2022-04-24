@@ -17,15 +17,14 @@ namespace Base
         public string SocketName { get; set; }
         public string proto { get; set; } = "binary";
     }
-    public class DaemonClient : icontrol
+    public class DaemonClient : Icontrol
     {
-        const int MsgIDLength = 16;
 
         public String instanceName;
         public String uri;
         WebsocketClient client;
 
-        public event icontrol.RecvMsg OnRecvMsg;
+        public event Icontrol.RecvMsg OnRecvMsg;
 
         public DaemonClient(String uri, String name)
         {
@@ -99,17 +98,17 @@ namespace Base
 
         }
 
-        public void close()
+        public void Close()
         {
             throw new NotImplementedException();
         }
 
-        public string send(string body)
+        public string Send(string body)
         {
             throw new NotImplementedException();
         }
 
-        public byte[] send(byte[] body)
+        public byte[] Send(byte[] body)
         {
             throw new NotImplementedException();
         }

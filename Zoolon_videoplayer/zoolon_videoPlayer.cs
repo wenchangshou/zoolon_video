@@ -69,8 +69,8 @@ namespace Zoolon_videoplayer
                 return;
             }
             control = new controlImpl();
-            control.execute += Control_execute;
-            control.get += GetHandler;
+            control.Execute += Control_execute;
+            control.Get += GetHandler;
             server = new Server
             {
                 Services = { Control.RpcCall.BindService(control) },

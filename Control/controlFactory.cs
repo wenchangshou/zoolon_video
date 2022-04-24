@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace Base
 {
-    internal class controlFactory
+    public enum ProtocolType
     {
-        public icontrol make(string protocol,Options option)
+        Daemon,
+        Grpc
+    }
+     public class ControlFactory
+    {
+        public static Icontrol Make(ProtocolType protocol,Options option)
         {
-           if(protocol.ToLower() == "daemon")
+            if (protocol == ProtocolType.Daemon)
             {
-
+                string uri = $"ws://{option.WebsocketIP}:{option.WebsocketPort}";
+               var client= new DaemonClient(uri,option.WebsocketInstanceName);
+                client.Start();
+                return client;
             }
             return null;
         }

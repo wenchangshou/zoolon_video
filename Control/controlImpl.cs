@@ -9,25 +9,25 @@ using Grpc.Core;
 
 public class ControlStruct
 {
-    public string? Action { get; set; }
+    public string Action { get; set; }
 }
 public class controlImpl : RpcCall.RpcCallBase
 {
     public controlImpl()
     {
     }
-    public delegate ExecuteResult executeHandler(string payload);
-    public event executeHandler? execute;
-    public delegate getResult getHandler();
-    public event getHandler? get;
+    public delegate ExecuteResult ExecuteHandler(string payload);
+    public event ExecuteHandler Execute;
+    public delegate getResult GetHandler();
+    public event GetHandler Get;
     public override Task<RpcResponse> Call(RpcRequest request, ServerCallContext context)
     {
         string body = request.Body;
 
-        ExecuteResult payload = new ExecuteResult();
-        if (execute != null)
+        ExecuteResult payload = new();
+        if (Execute != null)
         {
-            payload = execute(body);
+            payload = Execute(body);
         }
 
         return Task.FromResult(new RpcResponse { Code = payload.Code, Msg = payload.Msg });
@@ -38,8 +38,5 @@ public class controlImpl : RpcCall.RpcCallBase
         return base.Close(request, context);
     }
 
-    /**
-     * 
-     */
 
 }

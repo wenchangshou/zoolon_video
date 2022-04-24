@@ -7,7 +7,7 @@ using CommandLine;
 
 public class Options
 {
-    [Option( "protocol", Required =false,Default ="rpc")]
+    [Option( "protocol", Required =false,Default ="grpc")]
     public string Protocol { get; set; }
     [Option('x',  Required = false, Default = 0, HelpText = "set winform x position")]
     public int X { get; set; }
