@@ -2,7 +2,7 @@
   "profiles": {
     "zoolon_container": {
       "commandName": "Project",
-      "commandLineArgs": "--protocol daemon -x 1920 -y 0 -w 3840 -h 2160 -s http://www.baidu.com --register_websocket true --websocket_ip 192.168.10.47 --websocket_port 8181 --websocket_instance_name wcs"
+      "commandLineArgs": "--protocol daemon -x 1920 -y 0 -w 3840 -h 2160 -s D:\\vd-resources\\ppt\\1.pptx  --register_websocket true --websocket_ip 192.168.10.47 --websocket_port 8181 --websocket_instance_name wcs"
     }
   }
 }

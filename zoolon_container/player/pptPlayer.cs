@@ -12,14 +12,24 @@ using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using System.Windows.Forms.Integration;
 using System.Collections;
+using Newtonsoft.Json;
 
 namespace zoolon_container.player
 {
-    class pptPlayer : iplayer
+    class PptCmdArguments
+    {
+        public int Page { get; set; } = -1;
+    }
+    class PptCmdStruct
+    {
+        public string Action { get; set; } = "";
+        public PptCmdArguments? Arguments { get; set; } 
+    }
+    class PptPlayer : iplayer
     {
         private customPptPlayer player;
         string _source;
-        public pptPlayer(string source)
+        public PptPlayer(string source)
         {
          
             _source = source;
@@ -37,7 +47,35 @@ namespace zoolon_container.player
 
         public replyMessage Control(string body)
         {
-            throw new NotImplementedException();
+            replyMessage reply = new replyMessage { };
+            PptCmdStruct jsonBody = JsonConvert.DeserializeObject<PptCmdStruct>(body);
+
+            if (jsonBody == null || jsonBody.Action == null || jsonBody.Action == "")
+            {
+                return reply;
+            }
+            switch (jsonBody.Action)
+            {
+                case "next":
+                    player.Next();
+                    break;
+                case "pre":
+                    player.Prev();
+                    break;
+                case "first":
+                    player.First();
+                    break;
+                case "last":
+                    player.Last();
+                    break;
+                case "goPage":
+                    if (jsonBody.Arguments != null)
+                    {
+                        player.GoPage(jsonBody.Arguments.Page);
+                    }
+                    break;
+            }
+            return reply;
         }
 
         public replyMessage Control(Hashtable args)

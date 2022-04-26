@@ -14,7 +14,7 @@ namespace zoolon_container.player
             switch (pType)
             {
                 case PlayerType.PPT:
-                    player = new pptPlayer(source);
+                    player = new PptPlayer(source);
                     break;
                 case PlayerType.Video:
                     player = new VideoPlayer(source);

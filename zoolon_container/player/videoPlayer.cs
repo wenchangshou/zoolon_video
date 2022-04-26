@@ -27,7 +27,7 @@ namespace zoolon_container.player
     {
         public int PlayMode { get; set; } = -1;
         public int Position { get; set; } = -1;
-        public int? Volume { get; set; }
+        public int Volume { get; set; } = -1;
     }
     internal class VideoControlStruct
     {
@@ -172,7 +172,15 @@ namespace zoolon_container.player
                         SetPlayPosition(jsonBody.Arguments.Position);
                     }
                     break;
-                    
+                case "setVolume":
+                    if (jsonBody.Arguments != null && jsonBody.Arguments.Volume != -1)
+                    {
+                        SetPlayVolume(jsonBody.Arguments.Volume);
+                    }
+                    break;
+                case "reset":
+                    SetPlayPosition(0);
+                    break;
             }
             return reply;
         }

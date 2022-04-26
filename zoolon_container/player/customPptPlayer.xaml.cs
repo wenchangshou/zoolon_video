@@ -153,7 +153,42 @@ namespace zoolon_container.player
         {
             var objPresSet = ObjApp.Presentations;
             var objPrs = objPresSet.Open(url, MsoTriState.msoTrue, MsoTriState.msoFalse, MsoTriState.msoFalse);
+            
             return objPrs;
         }
+        public bool Next()
+        {
+            var slides = ObjPrs.Slides;
+            int count = slides.Count;
+            OSlideShowView.Next();
+            return true;
+        }
+        public bool Prev()
+        {
+
+            OSlideShowView.Previous();
+            return true;
+        }
+        public bool First()
+        {
+            OSlideShowView.First();
+            return true;
+        }
+        public bool Last()
+        {
+            OSlideShowView.Last();
+            return true;
+        }
+        public bool GoPage(int page)
+        {
+            int count=ObjPrs.Slides.Count;
+            if (page <= count)
+            {
+                OSlideShowView.GotoSlide(page);
+
+            }
+            return true;
+        }
+
     }
 }
