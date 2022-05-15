@@ -18,6 +18,6 @@
     <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
 	<ItemGroup>
-		<Protobuf Include="../../protos/control.proto" Link="control.proto" />
+		<Protobuf Include="./control.proto" Link="control.proto" />
 	</ItemGroup> 
 </Project>
